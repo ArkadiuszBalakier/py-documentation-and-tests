@@ -8,41 +8,58 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cinema', '0001_initial'),
+        ("cinema", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
+    replaces = [("cinema", "0002_initial")]
+
     operations = [
         migrations.AddField(
-            model_name='movie',
-            name='actors',
-            field=models.ManyToManyField(to='cinema.actor'),
+            model_name="movie",
+            name="actors",
+            field=models.ManyToManyField(to="cinema.actor"),
         ),
         migrations.AddField(
-            model_name='movie',
-            name='genres',
-            field=models.ManyToManyField(to='cinema.genre'),
+            model_name="movie",
+            name="genres",
+            field=models.ManyToManyField(to="cinema.genre"),
         ),
         migrations.AddField(
-            model_name='moviesession',
-            name='cinema_hall',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='movie_sessions', to='cinema.cinemahall'),
+            model_name="moviesession",
+            name="cinema_hall",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="movie_sessions",
+                to="cinema.cinemahall",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='moviesession',
-            name='movie',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='movie_sessions', to='cinema.movie'),
+            model_name="moviesession",
+            name="movie",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="movie_sessions",
+                to="cinema.movie",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='order',
-            name='user',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='orders', to=settings.AUTH_USER_MODEL),
+            model_name="order",
+            name="user",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="orders",
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
         ),
         migrations.AlterUniqueTogether(
-            name='ticket',
-            unique_together={('movie_session', 'row', 'seat')},
+            name="ticket",
+            unique_together={("movie_session", "row", "seat")},
         ),
     ]
